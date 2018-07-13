@@ -84,17 +84,18 @@ a {
     color: #fff;
 }
 
-li a:hover .close {
+li a:hover span {
     visibility: visible;
     background-color: #333333;
+    font-size: x-small;
 }
 
 .close {
-    width: 20px;
-    height: 20px;
-    border-radius: 25%;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
     float: right;
     visibility: hidden;
     outline: none;
-
 }

@@ -21,20 +21,38 @@ class Nav extends Component {
         });
     }
 
-    activate (e) {
-        let active = e.target.href.slice(e.target.href.indexOf('#') + 1);
-        this.setState({active: active});
+    onClick (e) {
+        if (e.target.href) {
+            let id = e.target.href.slice(e.target.href.indexOf('#') + 1);
+            this.setState({active: id});
+        } else {
+            let id = e.target.parentElement.href.slice(e.target.parentElement.href.indexOf('#') + 1);
+            this.setState((prevState) => {
+                prevState.tabs.splice(id, 1);
+
+                for (let i = 0; i < prevState.tabs.length; i++) {
+                    prevState.tabs[i].id = i;
+                }
+                return {
+                    active: prevState.active - 1,
+                    tabs: prevState.tabs
+                }
+            });
+
+
+        }
     }
 
     render() {
+        //console.log(this.state.tabs);
         let tabs = this.state.tabs.map((tab) => {
             let className = tab.id ===  parseInt(this.state.active) ? 'tab active' : 'tab';
 
             return (
                 <li key={tab.id}>
-                    <a className={className} href={'#' + tab.id} onClick={this.activate.bind(this)}>
+                    <a className={className} href={'#' + tab.id} onClick={this.onClick.bind(this)}>
                         {tab.name}
-                        <span className='close' onClick={}>x</span>
+                        <span className='close'>x</span>
                     </a>
                 </li>
             )
