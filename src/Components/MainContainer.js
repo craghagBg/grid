@@ -4,7 +4,9 @@ import '../Styles/MainContainer.css';
 class MainContainer extends Component {
     render() {
         return (
-            <div className='main-container'>Main Container</div>
+            <div className='main-container'>
+                <gcse:searchresults></gcse:searchresults>
+            </div>
         );
     }
 }

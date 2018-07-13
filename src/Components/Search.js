@@ -17,11 +17,13 @@ class Search extends Component {
         console.log(this.state.inputValue);
     }
 
-    render() {
+    render () {
         return (
             <form onSubmit={(e) => this.submit(e)}>
                 <span className='searchContainer'>
-                    <input type='text' placeholder='Search' onChange={this.updateInputValue.bind(this)}/>
+                    <input type='text' placeholder='Search' onChange={this.updateInputValue.bind(this)}>
+                        <gcse:searchbox></gcse:searchbox>
+                    </input>
                     <input type="submit"/>
                 </span>
 

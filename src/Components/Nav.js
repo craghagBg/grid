@@ -38,13 +38,10 @@ class Nav extends Component {
                     tabs: prevState.tabs
                 }
             });
-
-
         }
     }
 
     render() {
-        //console.log(this.state.tabs);
         let tabs = this.state.tabs.map((tab) => {
             let className = tab.id ===  parseInt(this.state.active) ? 'tab active' : 'tab';
 
