@@ -19,20 +19,20 @@ class Search extends Component {
 
     render () {
         return (
-            <form onSubmit={(e) => this.submit(e)}>
-                <span className='searchContainer'>
-                    <input type='text' placeholder='Search' onChange={this.updateInputValue.bind(this)}>
-                        <gcse:searchbox></gcse:searchbox>
-                    </input>
-                    <input type="submit"/>
-                </span>
+            <div>
+                <form onSubmit={(e) => this.submit(e)}>
+                    <span className='searchContainer'>
+                        <input type='text' placeholder='Search' onChange={this.updateInputValue.bind(this)}/>
+                        <input type="submit"/>
+                    </span>
 
-                <select>
-                    <option>Video</option>
-                    <option>Pictures</option>
-                    <option>Both</option>
-                </select>
-            </form>
+                    <select>
+                        <option>Video</option>
+                        <option>Pictures</option>
+                    </select>
+                </form>
+                <div dangerouslySetInnerHTML={{__html:'<gcse:searchbox/>'}} />
+            </div>
         );
     }
 }

@@ -5,7 +5,7 @@ class MainContainer extends Component {
     render() {
         return (
             <div className='main-container'>
-                <gcse:searchresults></gcse:searchresults>
+                <div dangerouslySetInnerHTML={{__html:'<gcse:searchresults/>'}} />
             </div>
         );
     }
