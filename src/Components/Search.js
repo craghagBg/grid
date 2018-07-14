@@ -1,20 +1,42 @@
 import React, {Component} from 'react';
+import config from '../config';
 
 class Search extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            inputValue: ''
+            inputValue: '',
+            url: ''
         }
     }
+
     updateInputValue (e) {
         e.preventDefault();
         this.setState({inputValue: e.target.value});
     }
 
+    buildUrl(query){
+        let { url, queryParams }= config.youtube;
+        queryParams.map(x=>{
+            url += `${x.key}=${x.value}&`;
+        });
+        url += `q=${query}`;
+        return url;
+    }
+
     submit (e) {
         e.preventDefault();
-        console.log(this.state.inputValue);
+        let url = this.buildUrl(this.state.inputValue);
+        let _this = this;
+
+        fetch(url)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(json) {
+                    _this.props.responseCallBack(json.items);
+                }
+            );
     }
 
     render () {
@@ -25,7 +47,6 @@ class Search extends Component {
                         <input type='text' placeholder='Search' onChange={this.updateInputValue.bind(this)}/>
                         <input type="submit"/>
                     </span>
-
                     <select>
                         <option>Video</option>
                         <option>Pictures</option>

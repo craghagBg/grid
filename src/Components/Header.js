@@ -5,13 +5,16 @@ import '../Styles/Header.css';
 
 class Header extends Component {
 
-
+    constructor (props) {
+        super(props);
+    }
     render() {
+
         return (
             <header className="app-header">
-                <Nav />
+                <Nav/>
                 <h1 className="app-title">Grid of Posters and Video</h1>
-                <Search />
+                <Search {...this.props}/>
             </header>
         );
     }
