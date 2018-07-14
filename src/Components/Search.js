@@ -6,13 +6,18 @@ class Search extends Component {
         super(props);
         this.state = {
             inputValue: '',
-            url: ''
+            searchType: 'Video'
         }
     }
 
     updateInputValue (e) {
         e.preventDefault();
         this.setState({inputValue: e.target.value});
+    }
+
+    updateSelectValue (e) {
+        e.preventDefault();
+        this.setState({searchType: e.target.value});
     }
 
     buildUrl(query){
@@ -27,16 +32,14 @@ class Search extends Component {
     submit (e) {
         e.preventDefault();
         let url = this.buildUrl(this.state.inputValue);
-        let _this = this;
 
         fetch(url)
             .then(function(response) {
                 return response.json();
             })
             .then(function(json) {
-                    _this.props.responseCallBack(json.items);
-                }
-            );
+                    this.props.responseCallBack(json.items, this.state.inputValue, this.state.searchType);
+            }.bind(this));
     }
 
     render () {
@@ -47,12 +50,11 @@ class Search extends Component {
                         <input type='text' placeholder='Search' onChange={this.updateInputValue.bind(this)}/>
                         <input type="submit"/>
                     </span>
-                    <select>
+                    <select onChange={this.updateSelectValue.bind(this)}>
                         <option>Video</option>
                         <option>Pictures</option>
                     </select>
                 </form>
-                <div dangerouslySetInnerHTML={{__html:'<gcse:searchbox/>'}} />
             </div>
         );
     }
