@@ -10,22 +10,16 @@ class Grid extends Component {
     }
 
     componentWillReceiveProps (props) {
-        this.setState({items: props.items, searchType: props.searchType, action: false, play: ''});
-    }
-
-    play (e) {
-        if (e.target.localName === 'li') {
-            this.setState({action: true, play: e.target.attributes.videoid.nodeValue});
-        } else {
-            this.setState({action: false});
-        }
+        this.setState({items: props.items, searchType: props.searchType, action: false, content: ''});
     }
 
     buildPosters () {
-        if (this.state.searchType === config.searchType.video) {
-            let key = 0;
-            return this.state.items ? this.state.items.map((item)=>{
-                let currStyle = {
+        let key = 0;
+        let currStyle = {};
+
+        return this.state.items ? this.state.items.map((item)=>{
+            if (this.state.searchType === config.searchType.video) {
+                currStyle = {
                     backgroundImage: `url(${tools.has(['snippet', 'thumbnails', 'medium', 'url'], item)})`,
                     width: '320px',
                     height: '180px',
@@ -35,15 +29,41 @@ class Grid extends Component {
                 return <li
                     key={++key}
                     style={currStyle}
-                    videoid={item.id.videoId}
+                    currContent={item.id.videoId}
                     onClick={ this.play.bind(this) }>
                 </li>
-            }) : '';
+            } else {
+                let image = tools.has(['link'], item);
+                currStyle = {
+                    backgroundImage: `url(${image})`,
+                    backgroundSize: '320px',
+                    resizeMode: 'cover',
+                    width: '320px',
+                    height: '180px',
+                    margin: '25px',
+                    cursor: 'pointer'
+                };
+                return <li
+                    key={++key}
+                    currContent={ image }
+                    style={currStyle}
+                    onClick={ this.play.bind(this) }>
+                </li>
+            }
+        }) : '';
+
+    }
+
+    play (e) {
+        if (e.target.localName === 'li') {
+            this.setState({present: true, content: e.target.attributes.currContent.nodeValue});
+        } else {
+            this.setState({present: false});
         }
     }
 
-    buildVideo (video) {
-        const src = "https://www.youtube.com/embed/" + video + '?rel=0&autoplay=1';
+    buildFrame (content) {
+        const src = this.state.searchType === config.searchType.video ? "https://www.youtube.com/embed/" + content + '?rel=0&autoplay=1' : content;
 
         return <iframe
             id="player"
@@ -55,9 +75,9 @@ class Grid extends Component {
     }
 
     render () {
-        let content = this.state.action ?
+        let content = this.state.present ?
             <div className="player">
-                {this.buildVideo(this.state.play)}
+                {this.buildFrame(this.state.content)}
                 <button className='close-video' onClick={this.play.bind(this)}>Close</button>
             </div>
             : <ul className='list'> {this.buildPosters()} </ul>;

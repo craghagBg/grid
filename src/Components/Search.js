@@ -38,7 +38,7 @@ class Search extends Component {
                 return response.json();
             })
             .then(function(json) {
-                    this.props.responseCallBack(json.items, this.state.inputValue, this.state.searchType);
+                    this.props.responseCallBack(json.items || {}, this.state.inputValue, this.state.searchType);
             }.bind(this));
     }
 
