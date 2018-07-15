@@ -40,7 +40,7 @@ class Grid extends Component {
 
     render () {
         let content = this.state.action ?
-            <div class="player">
+            <div className="player">
                 <iframe
                     id="player"
                     width="640"

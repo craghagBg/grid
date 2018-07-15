@@ -17,7 +17,7 @@ class App extends Component {
         this.setState({items:items, searchType: searchType})
     }
 
-    render() {;
+    render() {
         return (
             <div className="Wrapper">
                 <Header responseCallBack={this.getResponse.bind(this)}/>
