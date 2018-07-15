@@ -10,12 +10,15 @@ class Grid extends Component {
     }
 
     componentWillReceiveProps (props) {
-        this.setState({items: props.items, searchType: props.searchType, action: false});
+        this.setState({items: props.items, searchType: props.searchType, action: false, play: ''});
     }
 
     play (e) {
-        console.log(e.target);
-        this.setState({action: true});
+        if (e.target.localName === 'li') {
+            this.setState({action: true, play: e.target.attributes.videoid.nodeValue});
+        } else {
+            this.setState({action: false});
+        }
     }
 
     buildPosters () {
@@ -32,27 +35,32 @@ class Grid extends Component {
                 return <li
                     key={++key}
                     style={currStyle}
+                    videoid={item.id.videoId}
                     onClick={ this.play.bind(this) }>
                 </li>
             }) : '';
         }
     }
 
+    buildVideo (video) {
+        const src = "https://www.youtube.com/embed/" + video + '?rel=0&autoplay=1';
+
+        return <iframe
+            id="player"
+            width="700"
+            height="480"
+            allowFullScreen="true"
+            src={src}
+            frameBorder="0"/>
+    }
+
     render () {
         let content = this.state.action ?
             <div className="player">
-                <iframe
-                    id="player"
-                    width="640"
-                    height="390"
-                    allowFullScreen="true"
-                    src="https://www.youtube.com/embed/tgbNymZ7vqY"
-                    frameBorder="0"/>
+                {this.buildVideo(this.state.play)}
+                <button className='close-video' onClick={this.play.bind(this)}>Close</button>
             </div>
-
-            : <ul className='list'>
-                {this.buildPosters()}
-              </ul>;
+            : <ul className='list'> {this.buildPosters()} </ul>;
 
         return (
             <div className='grid'>

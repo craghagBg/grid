@@ -11,3 +11,27 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+
+.player {
+    padding: 20px;
+    display: block;
+}
+
+.player:hover .close-video{
+    visibility: visible;
+}
+
+.close-video {
+    visibility: hidden;
+    display: block;
+    margin: 0 auto;
+    outline: none;
+    border:none;
+    width:80px;
+    height:30px;
+    background-color: dodgerblue;
+    font-size: 1em;
+    color: white;
+    border-radius: 5%;
+}
+
