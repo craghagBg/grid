@@ -21,7 +21,7 @@ class Search extends Component {
     }
 
     buildUrl(query){
-        let { url, queryParams }= config.youtube;
+        let { url, queryParams } = this.state.searchType === config.searchType.video ? config.video : config.picture;
         queryParams.map(x=>{
             url += `${x.key}=${x.value}&`;
         });
