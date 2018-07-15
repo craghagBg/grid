@@ -12,7 +12,7 @@ class Header extends Component {
 
         return (
             <header className="app-header">
-                <Nav/>
+                <Nav {...this.props}/>
                 <h1 className="app-title">Grid of Posters and Video</h1>
                 <Search {...this.props}/>
             </header>

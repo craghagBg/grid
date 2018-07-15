@@ -1,5 +1,6 @@
 export default {
 
+    searchType: {video: 'Video', picture:'Picture'},
     youtube: {
         url: 'https://content.googleapis.com/youtube/v3/search?',
         queryParams: [
