@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import config from '../config';
+import axios from 'axios';
 
 class Search extends Component {
     constructor (props) {
@@ -33,13 +34,18 @@ class Search extends Component {
         e.preventDefault();
         let url = this.buildUrl(this.state.inputValue);
 
-        fetch(url)
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(json) {
-                    this.props.responseCallBack(json.items || {}, this.state.inputValue, this.state.searchType);
-            }.bind(this));
+        axios.get(url)
+            .then(function (response) {
+                this.props.responseCallBack(response.data.items || {}, this.state.inputValue, this.state.searchType)
+            }.bind(this))
+
+        // fetch(url)
+        //     .then(function(response) {
+        //         return response.json();
+        //     })
+        //     .then(function(json) {
+        //             this.props.responseCallBack(json.items || {}, this.state.inputValue, this.state.searchType);
+        //     }.bind(this));
     }
 
     render () {

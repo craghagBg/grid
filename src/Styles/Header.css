@@ -74,6 +74,8 @@ li {
     width: 80px;
     display: inline-block;
     padding: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .active {
     border-color: dodgerblue;
@@ -88,9 +90,11 @@ li {
 a {
     text-decoration: none;
     color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-a:hover span {
+li:hover span {
     visibility: visible;
     background-color: #333333;
     font-size: x-small;

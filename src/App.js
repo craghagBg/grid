@@ -8,20 +8,30 @@ class App extends Component {
         super(props, context);
         this.state = {
             items: {},
-            searchType: 'Video'
+            searchType: 'Video',
+            inputValue: ''
         };
     }
 
-    getResponse(items, searchString, searchType){
-        items.map((item) => item.searchType = searchType);
-        this.setState({items:items, searchType: searchType})
+    getResponse(items, inputValue, searchType, updateHeader){
+        if (items && items.length > 0) items.map((item) => item.searchType = searchType);
+
+        this.setState({items ,inputValue, searchType, updateHeader})
     }
 
     render() {
         return (
             <div className="Wrapper">
-                <Header responseCallBack={this.getResponse.bind(this)}/>
-                <MainContainer items={this.state.items} searchType={this.state.searchType}/>
+                <Header responseCallBack={
+                    this.getResponse.bind(this)}
+                    items={this.state.items}
+                    inputValue={this.state.inputValue}
+                    searchType={this.state.searchType}
+                    updateHeader={this.state.updateHeader}/>
+
+                <MainContainer
+                    items={this.state.items}
+                    searchType={this.state.searchType}/>
             </div>
         );
     }

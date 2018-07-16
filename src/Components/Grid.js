@@ -10,14 +10,14 @@ class Grid extends Component {
     }
 
     componentWillReceiveProps (props) {
-        this.setState({items: props.items, searchType: props.searchType, action: false, content: ''});
+        this.setState({items: props.items, searchType: props.searchType, present: false, content: ''});
     }
 
     buildPosters () {
         let key = 0;
         let currStyle = {};
 
-        return this.state.items ? this.state.items.map((item)=>{
+        return this.state.items && this.state.items.length > 0 ? this.state.items.map((item)=>{
             if (this.state.searchType === config.searchType.video) {
                 currStyle = {
                     backgroundImage: `url(${tools.has(['snippet', 'thumbnails', 'medium', 'url'], item)})`,
@@ -29,7 +29,7 @@ class Grid extends Component {
                 return <li
                     key={++key}
                     style={currStyle}
-                    currContent={item.id.videoId}
+                    currcontent={item.id.videoId}
                     onClick={ this.play.bind(this) }>
                 </li>
             } else {
@@ -45,7 +45,7 @@ class Grid extends Component {
                 };
                 return <li
                     key={++key}
-                    currContent={ image }
+                    currcontent={ image }
                     style={currStyle}
                     onClick={ this.play.bind(this) }>
                 </li>
@@ -56,7 +56,7 @@ class Grid extends Component {
 
     play (e) {
         if (e.target.localName === 'li') {
-            this.setState({present: true, content: e.target.attributes.currContent.nodeValue});
+            this.setState({present: true, content: e.target.attributes.currcontent.nodeValue});
         } else {
             this.setState({present: false});
         }
@@ -75,7 +75,7 @@ class Grid extends Component {
     }
 
     render () {
-        let content = this.state.present ?
+        let items = this.state.present ?
             <div className="player">
                 {this.buildFrame(this.state.content)}
                 <button className='close-video' onClick={this.play.bind(this)}>Close</button>
@@ -84,7 +84,7 @@ class Grid extends Component {
 
         return (
             <div className='grid'>
-                {content}
+                {items}
             </div>
         );
     }

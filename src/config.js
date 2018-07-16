@@ -12,7 +12,7 @@ export default {
     picture: {
         url: 'https://content.googleapis.com/customsearch/v1?',
         queryParams: [
-            { key: 'key', value : 'AIzaSyCCKLybKJyAthr83ecSAdjEQrlfnG6VMpo'},
+            { key: 'key', value : 'AIzaSyCLSBES4hH6XgtSMh3lsfbnOy0UHYCF4kg'},
             { key: 'cx', value: '015877985254590403594:m3qfylt4ozc'},
             { key: 'searchType', value : 'image'}
         ]
